@@ -8,7 +8,7 @@ function App() {
   // Adding items to the basket
   const addItem = (item: string) => {
     setBasket((prevBasket) => {
-      const newBasket = { ...prevBasket, [item]: prevBasket[item] + 1 };
+      const newBasket = { ...prevBasket, [item]: (prevBasket[item] || 0) + 1 };
       console.log(newBasket);
 
       return newBasket;
