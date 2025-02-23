@@ -15,6 +15,24 @@ function App() {
       return newBasket;
     });
   };
+
+  // my remove item with a counter
+  const removeItem = (item: string) => {
+    setBasket((prevBasket) => {
+      if (!prevBasket[item]) return prevBasket; // If item isn't in the basket, do nothing
+
+      const newBasket = { ...prevBasket };
+      newBasket[item]--;
+
+      if (newBasket[item] === 0) {
+        delete newBasket[item]; // Remove item if count reaches 0
+      }
+
+      setTotal(calculateTotal(newBasket));
+      return newBasket;
+    });
+  };
+
   // Gitting the [item : quantity] of basket
   const items = Object.entries(basket);
 
@@ -26,24 +44,39 @@ function App() {
       <div>
         <h2>Checkout System</h2>
         <p>Select items to add to your basket:</p>
-        <div>
-          {itemName.map((item) => (
-            <button key={item} onClick={() => addItem(item)}>
-              Add {item}
-            </button>
-          ))}
+
+        <div className="items">
+          {itemName.map((item) => {
+            const product = pricingRules[item]; // Get item details
+            const quantity = basket[item] || 0; // Get current quantity
+
+            return (
+              <div key={item} className="item-container">
+                <h3>{item}</h3>
+                <p>Price: £{(product.unitPrice / 100).toFixed(2)}</p>
+
+                {product.specialPrice && (
+                  <p>
+                    Buy {product.specialPrice.quantity} for £
+                    {(product.specialPrice.price / 100).toFixed(2)}
+                  </p>
+                )}
+
+                {/* Counter Section */}
+                <div className="counter">
+                  <button
+                    onClick={() => removeItem(item)}
+                    disabled={quantity === 0}
+                  >
+                    -
+                  </button>
+                  <span>{quantity}</span>
+                  <button onClick={() => addItem(item)}>+</button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-        <div>
-          <h3>Basket:</h3>
-          <ul>
-            {items.map(([item, quantity]) => (
-              <li key={item}>
-                {item} : {quantity}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <h3>Total: £{(total / 100).toFixed(2)}</h3>
       </div>
     </main>
   );
