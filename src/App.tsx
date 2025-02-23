@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { calculateTotal } from "./utils/calculateTotal";
+import { pricingRules } from "./data/pricingRules";
 
 function App() {
   const [basket, setBasket] = useState<{ [key: string]: number }>({});
@@ -17,16 +18,20 @@ function App() {
   // Gitting the [item : quantity] of basket
   const items = Object.entries(basket);
 
+  // Getting the items' key
+  const itemName = Object.keys(pricingRules);
+
   return (
     <main className="App">
       <div>
         <h2>Checkout System</h2>
         <p>Select items to add to your basket:</p>
         <div>
-          <button onClick={() => addItem("A")}>Add A</button>
-          <button onClick={() => addItem("B")}>Add B</button>
-          <button onClick={() => addItem("C")}>Add C</button>
-          <button onClick={() => addItem("D")}>Add D</button>
+          {itemName.map((item) => (
+            <button key={item} onClick={() => addItem(item)}>
+              Add {item}
+            </button>
+          ))}
         </div>
         <div>
           <h3>Basket:</h3>
@@ -38,7 +43,7 @@ function App() {
             ))}
           </ul>
         </div>
-        <h3>Total: {total}</h3>
+        <h3>Total: £{(total / 100).toFixed(2)}</h3>
       </div>
     </main>
   );
