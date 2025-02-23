@@ -1,3 +1,109 @@
-.App {
+.header {
   text-align: center;
+}
+
+.header p {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Main container for each item */
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 15px 50px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.item-container:hover {
+  transform: scale(1.02);
+}
+
+/* Product name and pricing section */
+.name-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.item-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Price section */
+.prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.prices p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+.prices p:last-child {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Counter section */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.counter button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.counter button:hover {
+  background-color: #0056b3;
+}
+
+.counter button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.counter span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Total Price Section */
+.total-price {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.total-price span {
+  color: #007bff;
 }
