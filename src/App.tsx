@@ -9,11 +9,11 @@ function App() {
   const addItem = (item: string) => {
     setBasket((prevBasket) => {
       const newBasket = { ...prevBasket, [item]: (prevBasket[item] || 0) + 1 };
-      console.log(newBasket);
-
       return newBasket;
     });
   };
+  const items = Object.entries(basket);
+  console.log(items);
 
   return (
     <main className="App">
@@ -28,6 +28,13 @@ function App() {
         </div>
         <div>
           <h3>Basket:</h3>
+          <ul>
+            {items.map(([item, quantity]) => (
+              <li key={item}>
+                {item} : {quantity}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </main>
