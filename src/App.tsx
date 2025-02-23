@@ -1,7 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import { calculateTotal } from "./utils/calculateTotal";
+
 import { pricingRules } from "./data/pricingRules";
+
+import { calculateTotal } from "./utils/calculateTotal";
+import Product from "./components/Products";
 
 function App() {
   const [basket, setBasket] = useState<{ [key: string]: number }>({});
@@ -34,7 +37,7 @@ function App() {
   };
 
   // Getting the items' key
-  const itemName = Object.keys(pricingRules);
+  const itemNames = Object.keys(pricingRules);
 
   return (
     <main className="App">
@@ -43,42 +46,16 @@ function App() {
         <p className=""> Your basket:</p>
 
         <div className="items">
-          {itemName.map((item) => {
-            // Get item details
-            const product = pricingRules[item];
-
-            // Get current quantity
-            const quantity = basket[item] || 0;
-            return (
-              <div key={item} className="item-container">
-                <div className="name-section">
-                  <h3>Product {item}</h3>
-                  <div className="prices">
-                    <p> Price: £{(product.unitPrice / 100).toFixed(2)}</p>
-                    {product.specialPrice && (
-                      <p>
-                        Buy {product.specialPrice.quantity} for £
-                        {(product.specialPrice.price / 100).toFixed(2)}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  {/* Counter Section */}
-                  <div className="counter">
-                    <button
-                      onClick={() => removeItem(item)}
-                      disabled={quantity === 0}
-                    >
-                      -
-                    </button>
-                    <span>{quantity}</span>
-                    <button onClick={() => addItem(item)}>+</button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {itemNames.map((item) => (
+            <Product
+              key={item}
+              item={item}
+              product={pricingRules[item]}
+              quantity={basket[item] || 0}
+              addItem={addItem}
+              removeItem={removeItem}
+            />
+          ))}
           <p className="total-price">
             Total: <span>£{(total / 100).toFixed(2)}</span>
           </p>
