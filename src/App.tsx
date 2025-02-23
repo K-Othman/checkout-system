@@ -16,7 +16,6 @@ function App() {
   };
   // Gitting the [item : quantity] of basket
   const items = Object.entries(basket);
-  console.log(items);
 
   return (
     <main className="App">
@@ -39,7 +38,7 @@ function App() {
             ))}
           </ul>
         </div>
-        <h3>Total:</h3>
+        <h3>Total: {total}</h3>
       </div>
     </main>
   );

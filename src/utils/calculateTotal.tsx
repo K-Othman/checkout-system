@@ -4,20 +4,25 @@ type Basket = {
   [key: string]: number;
 };
 
+// Loop through each item in the basket
 export const calculateTotal = (basket: Basket) => {
   let total = 0;
 
   Object.entries(basket).forEach(([item, quantity]) => {
+    // Get the pricing details for the item
     const rule = pricingRules[item];
 
     if (rule.specialPrice && quantity >= rule.specialPrice.quantity) {
-      console.log("will get the offer");
       const specialQuantity = rule.specialPrice.quantity;
       const specialPrice = rule.specialPrice.price;
-      console.log(specialPrice, "specialQuantity");
-      console.log(specialQuantity, "specialQuantity");
+
+      const numOfDeals = Math.floor(quantity / specialQuantity);
+      const remaining = quantity % specialQuantity;
+
+      // Add the price of special price deals and the remaining items at unit price
+      total += numOfDeals * specialPrice + remaining * rule.unitPrice;
     } else {
-      console.log("you will get the standerd price");
+      total += quantity * rule.unitPrice;
     }
   });
   return total;
