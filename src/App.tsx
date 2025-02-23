@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { calculateTotal } from "./utils/calculateTotal";
 
 function App() {
   const [basket, setBasket] = useState<{ [key: string]: number }>({});
@@ -9,6 +10,7 @@ function App() {
   const addItem = (item: string) => {
     setBasket((prevBasket) => {
       const newBasket = { ...prevBasket, [item]: (prevBasket[item] || 0) + 1 };
+      setTotal(calculateTotal(newBasket));
       return newBasket;
     });
   };
